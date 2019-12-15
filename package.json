@@ -9,15 +9,10 @@
     "lint": "standard --fix",
     "test": "jest --coverage"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "standard-lint"
+  "husky":{
+    "hooks":{
+      "pre-commit":"npm run lint"
     }
-  },
-  "standard-lint": {
-    "src/**/*.js": [
-      "npm run lint"
-    ]
   },
   "standard": {
     "env": [
