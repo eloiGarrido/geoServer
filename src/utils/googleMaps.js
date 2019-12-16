@@ -33,8 +33,6 @@ const formatAddress = (addressObj) => {
  * @param {object} addressObj Address to submit to Google maps for search
  */
 const searchByAddress = async (addressObj) => {
-  console.log('searchByAddress')
-  console.log('   addressObj', addressObj)
   const address = formatAddress(addressObj)
   return client.geocode({ address }).asPromise()
 }
@@ -45,16 +43,18 @@ const searchByAddress = async (addressObj) => {
  * @returns {boolean}
  */
 const checkAddress = (addressResponse) => {
-  console.log('checkAddress')
-  console.log('   addressResponse', addressResponse)
-
   assert(addressResponse.results.length === 1, 'Multiple results from address') // Enforce we are only getting one response
   assert(addressResponse.status === 'OK', 'Result is not OK, please validate address')
-  return true
+}
+
+const getCoordinates = (addressResponse) => {
+  assert(addressResponse.results[0].geometry, 'Missing geometry response data')
+  return addressResponse.results[0].geometry.location
 }
 
 module.exports = {
   getClient,
   searchByAddress,
-  checkAddress
+  checkAddress,
+  getCoordinates
 }

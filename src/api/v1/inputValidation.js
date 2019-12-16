@@ -6,9 +6,6 @@ const validateAddress = addressFields.map(field => {
   return body(`address.${field}`).not().isEmpty().isLength({ min: 1, max: 512 }).stripLow().trim()
 })
 
-const validateCoordinates = []
-
 module.exports = {
-  validateAddress,
-  validateCoordinates
+  validateAddress
 }

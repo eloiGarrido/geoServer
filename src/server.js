@@ -24,11 +24,9 @@ server.use(cors())
 // Routes
 server.use('/v1', routes)
 
-// if error is not an instanceOf APIError, convert it.
-server.use(error.converter)
-// catch 404 and forward to error handler
-server.use(error.notFound)
-// error handler, send stacktrace only during development
-server.use(error.handler)
+// Error handling
+server.use((err, req, res, next) => {
+  error.handleError(err, res)
+})
 
 module.exports = server

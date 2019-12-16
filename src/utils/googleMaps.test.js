@@ -38,23 +38,50 @@ describe('searchByAddress()', () => {
   })
 })
 
-describe('validateAddress()', () => {
+describe('checkAddress()', () => {
   it('should fail if results has length different than 1', () => {
     const addressResponse = {
       results: [1, 2]
     }
     expect(() => {
-      expect(addressResponse.results.length).toHaveLength(1)
+      googleMaps.checkAddress(addressResponse)
     }).toThrow()
   })
   it('should fail if response status is not OK', () => {
     const addressResponse = { status: 'ERROR' }
     expect(() => {
-      expect(addressResponse.status).toEqual('OK')
+      googleMaps.checkAddress(addressResponse)
     }).toThrow()
   })
   it('should return true if address is valid', () => {
-    expect(googleMaps.checkAddress(responseExample)).toBeTruthy()
+    expect(() => {
+      googleMaps.checkAddress(responseExample)
+    }).not.toThrow()
+  })
+})
+
+describe('getCoordinates()', () => {
+  it('should throw error if input has no property geometry', () => {
+    expect(() => {
+      googleMaps.getCoordinates({ results: [{ result: 'ok' }] })
+    }).toThrow('Missing geometry response data')
+  })
+  it('should return location object', () => {
+    const addressResponse = {
+      results: [
+        {
+          geometry: {
+            location: {
+              lat: 41.3655946,
+              lng: 2.1359212
+            }
+          }
+        }
+      ]
+    }
+    const { lat, lng } = googleMaps.getCoordinates(addressResponse)
+    expect(lat).toEqual(addressResponse.results[0].geometry.location.lat)
+    expect(lng).toEqual(addressResponse.results[0].geometry.location.lng)
   })
 })
 
