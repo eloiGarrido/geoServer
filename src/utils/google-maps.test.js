@@ -1,4 +1,4 @@
-const googleMaps = require('./googleMaps')
+const googleMaps = require('./google-maps')
 
 describe('getClient()', () => {
   it('should return a googleMaps client instance', () => {
@@ -19,7 +19,7 @@ describe('searchByAddress()', () => {
   it('should return an error if address is wrong', async () => {
     const addressObj = {}
     try {
-      await googleMaps.searchByAddress(addressObj)
+      await googleMaps.searchByAddress(googleMaps.formatAddress(addressObj))
     } catch (e) {
       expect(e).toMatch('error')
     }
@@ -33,7 +33,7 @@ describe('searchByAddress()', () => {
       country: 'Spain'
     }
 
-    const result = await googleMaps.searchByAddress(addressObj)
+    const result = await googleMaps.searchByAddress(googleMaps.formatAddress(addressObj))
     expect(result.json.status).toEqual('OK')
   })
 })

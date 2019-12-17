@@ -11,6 +11,12 @@ const getWeatherByCoordinates = async (lat, long) => {
   return data.json()
 }
 
+const hasPrecipitation = (weatherObj) => {
+  const precipitation = ['rain', 'snow']
+  return precipitation.some((kind) => Object.keys(weatherObj).includes(kind))
+}
+
 module.exports = {
-  getWeatherByCoordinates
+  getWeatherByCoordinates,
+  hasPrecipitation
 }

@@ -32,8 +32,7 @@ const formatAddress = (addressObj) => {
  *
  * @param {object} addressObj Address to submit to Google maps for search
  */
-const searchByAddress = async (addressObj) => {
-  const address = formatAddress(addressObj)
+const searchByAddress = async (address) => {
   return client.geocode({ address }).asPromise()
 }
 
@@ -56,5 +55,6 @@ module.exports = {
   getClient,
   searchByAddress,
   checkAddress,
-  getCoordinates
+  getCoordinates,
+  formatAddress
 }

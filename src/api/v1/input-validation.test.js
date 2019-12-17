@@ -1,4 +1,4 @@
-const inputValidation = require('./inputValidation')
+const inputValidation = require('./input-validation')
 
 describe('validateAddress', () => {
   it('should return body validators for address field', () => {
