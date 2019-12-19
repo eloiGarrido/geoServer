@@ -1,9 +1,17 @@
-const { isAddressCorrect, getWeatherByAddress, checkAndGetWeather, getStoredAddresses, checkPrecipitation } = require('./geoconfig')
+const {
+  isAddressCorrect,
+  getWeatherByAddress,
+  checkAndGetWeather,
+  getStoredAddresses,
+  checkPrecipitation,
+  monitorWeather
+} = require('./geoconfig')
 
 module.exports = {
   isAddressCorrect,
   getWeatherByAddress,
   checkAndGetWeather,
   getStoredAddresses,
-  checkPrecipitation
+  checkPrecipitation,
+  monitorWeather
 }

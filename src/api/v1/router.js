@@ -1,14 +1,13 @@
 const express = require('express')
-const { validateAddress } = require('./input-validation')
+const { validateAddress, validateSchedule } = require('./input-validation')
 const router = express.Router()
-const { isAddressCorrect, getWeatherByAddress, checkAndGetWeather, checkPrecipitation } = require('./geoconfig')
+const { isAddressCorrect, getWeatherByAddress, checkAndGetWeather, monitorWeather } = require('./geoconfig')
 const { validationWrapper } = require('../../utils/api-response')
-const { createCronJob } = require('../../utils/cron')
+
 /**
  * GET v1/status
  */
 router.get('/status', async (req, res) => {
-  createCronJob(checkPrecipitation())
   res.send('OK')
 })
 
@@ -34,6 +33,14 @@ router.post('/current-weather', (req, res, next) => {
  */
 router.post('/address-to-weather', validateAddress, (req, res, next) => {
   validationWrapper(req, res, next, checkAndGetWeather)
+})
+
+/**
+ * POST /v1/monitor
+ * Enables periodic weather monitor and optionally enables schedule
+ */
+router.post('/monitor', validateSchedule, (req, res, next) => {
+  validationWrapper(req, res, next, monitorWeather)
 })
 
 module.exports = router

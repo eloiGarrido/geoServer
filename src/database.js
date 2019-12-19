@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { mongo } = require('./config')
+const { mongoUri } = require('./config')
 
 mongoose.connection.on('error', (err) => {
   console.error(`MongoDB connection error: ${err}`)
@@ -11,7 +11,7 @@ mongoose.connection.on('open', () => {
 })
 
 exports.connect = () => {
-  mongoose.connect(mongo.uri, {
+  mongoose.connect(mongoUri, {
     keepAlive: 1,
     useCreateIndex: true,
     useNewUrlParser: true,

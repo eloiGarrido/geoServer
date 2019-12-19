@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer')
 const { email } = require('../config')
 
+// ethereal email transporter. It won't send a real email but can be pre-visualized
 const transporterGmail = {
   host: 'smtp.ethereal.email',
   port: 587,
@@ -18,14 +19,18 @@ const mail = {
   text: 'Testing Nodemailer'
 }
 
+/**
+ * Sends (fake) email with message
+ * @param {string} message
+ */
 const sendMail = async (message = 'Testing Nodemailer') => {
   // create a nodemailer transporter using smtp
   const transporter = nodemailer.createTransport(transporterGmail)
   // send mail using transporter
   mail.text = message
   const info = await transporter.sendMail(mail)
-
-  console.log(`Preview: ${nodemailer.getTestMessageUrl(info)}`)
+  // Print ethereal mail visualizer
+  console.log(`Email preview: ${nodemailer.getTestMessageUrl(info)}`)
 }
 
 module.exports = {
