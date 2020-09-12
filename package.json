@@ -36,7 +36,7 @@
     "http-status": "^1.4.2",
     "mongoose": "^5.8.1",
     "node-cron": "^2.0.3",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "nodemailer": "^6.4.2",
     "openweathermap-node": "^1.1.2"
   },
